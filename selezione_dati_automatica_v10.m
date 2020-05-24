@@ -3,7 +3,7 @@
 % per un determinato angolo di attacco.
 %
 % Nell'analisi in XFRL5 sono stati tenuti costanti i seguenti parametri:
-% - Velocit‡ pari a 55 m/s
+% - Velocit√† pari a 55 m/s
 % - Angolo di attacco
 % - Superficie alare, corda alare, AR, TR
 
@@ -12,7 +12,7 @@ result = isfolder('data_offset') ;
 a=any(size(dir(['data_offset' '/*.txt' ]),1));
 
 if result==0
-mkdir prova_data_offset
+mkdir data_offset
 movefile MainWing_a=0.00_v=55.00ms_offset* data_offset
 elseif result==1 && a==0
     movefile MainWing_a=0.00_v=55.00ms_offset* data_offset
@@ -34,7 +34,7 @@ offset = offset_3;
  gamma_Tip_dx = zeros(n_file,1);
  gamma_Tip_sx = zeros(n_file,1);
  
- %inizializzazione del vettore velocit‡
+ %inizializzazione del vettore velocit√†
  Vel = zeros(n_file,1);
  
  %inizializzo il vettore CP
@@ -57,7 +57,7 @@ for i = 1:n_file
     
     %estraggo la velocita
     C = analysis_struct.textdata{4,1}; %estraggo la 4a riga
-    C = C(1,10:15); %estraggo il valore della velocit‡
+    C = C(1,10:15); %estraggo il valore della velocit√†
     Vel(i) = str2double(C);
     
     
@@ -118,7 +118,7 @@ tg_beta_deg = tg_beta*180/pi;
  E=CL./Cd; % efficienza
 
 %calcolo fattore di osvald al variare dell'angolo di freccia
-e = (CL.^2)./(pi*7.483.*Cd);                    % 7.483 Ë il valore dell'AR
+e = (CL.^2)./(pi*7.483.*Cd);                    % 7.483 √® il valore dell'AR
 
 % costruisco una matrice con tutti i coefficienti estratti da XFLR5
 data_import=[tg_beta_deg' , CL' , Cd' , Cm' , gamma_Tip_dx , e']; 
@@ -211,7 +211,7 @@ punteggio(:,1)=coefficienti(:,1);   % prima colonna valore dell'angolo di frecci
     punteggio(:,6)=coefficienti(:,6)./(max(coefficienti(:,6)));                      % sesta colonna, assegno un punteggio per l'angolo di freccia che massimizza il fattore di Oswald
     
     punteggio(:,3)=1-(coefficienti(:,3)./(max(coefficienti(:,3))));                  % terza colonna, assegno un punteggio per l'angolo di freccia che minimizza il Cd
-    punteggio(:,5)=1-(coefficienti(:,5)./(max(coefficienti(:,5))));                  % quinta colonna, assegno un punteggio per l'angolo di freccia che minimizza l'intensita Gamma del vortice di estremit‡
+    punteggio(:,5)=1-(coefficienti(:,5)./(max(coefficienti(:,5))));                  % quinta colonna, assegno un punteggio per l'angolo di freccia che minimizza l'intensita Gamma del vortice di estremit√†
 
 
 punteggio1=punteggio(:,2:end);      % elimino la colonna contenente il valore dell'angolo di freccia
@@ -222,17 +222,17 @@ somma_punteggi=zeros;               % inizializzo un vettore vuoto somma_puntegg
 for i=1:row
     somma_punteggi(i)=sum(punteggio1(i,:));         % sommo i punteggi ottenuti
 end
-% caso in cui il vettore somma_punteggi ammette massimo con molteplicit‡
+% caso in cui il vettore somma_punteggi ammette massimo con molteplicit√†
 % pari ad 1
 [~,row]=max(somma_punteggi);
-disp(['l''angolo di freccia ottimale Ë pari a   ', num2str(punteggio(row,1)) ,'∫']) 
+disp(['l''angolo di freccia ottimale √® pari a   ', num2str(punteggio(row,1)) ,'¬∫']) 
 
 % stampo i valori ottenuti per la configurazione ottimale
 valori_config_ottimale=array2table(coefficienti(row,2:end),...
                         'VariableNames',{'CL' 'Cd_indotto' 'Cm' 'Gamma' 'e'});
 disp(valori_config_ottimale)
 
-% caso in cui il vettore somma_punteggi ammette un massimo con molteplicit‡
+% caso in cui il vettore somma_punteggi ammette un massimo con molteplicit√†
 % maggiore di 1
 if length(somma_punteggi)~=length(unique(somma_punteggi))
     warning('ci sono piu'' valori uguali nel vettore somma_punteggi, verificare se il valore con molteplicita>1 corrisponde al massimo')
@@ -246,7 +246,7 @@ punteggio_data_import(:,6)=data_import(:,6)./(max(data_import(:,6)));
 
 somma_punteggi_data_import=sum(punteggio_data_import,2);
 [~,IDmax]=max(somma_punteggi_data_import);
-disp(['l''angolo di freccia ottimale considerando tutti gli offset Ë pari a   ', num2str(data_import(IDmax,1)) ,'∫'])
+disp(['l''angolo di freccia ottimale considerando tutti gli offset √® pari a   ', num2str(data_import(IDmax,1)) ,'¬∫'])
 
 if data_import(IDmax,1)~=punteggio(row,1)
 
@@ -258,7 +258,7 @@ coefficienti1=coefficienti(:,2:end);
 
 rownames = compose('%3.2f', angoli_di_freccia);
 
-coefficienti_tab=array2table(coefficienti1, ...                                          % Coefficienti_tab Ë una tabella con il valori selezionati di
+coefficienti_tab=array2table(coefficienti1, ...                                          % Coefficienti_tab √® una tabella con il valori selezionati di
                             'VariableNames', {'CL' 'Cd' 'Cm' 'Gamma_tip' 'e'}, ...       % angolo di freccia ed i rispettivi CL,Cd,E,Gamma,e
                             'RowNames', rownames);                                       %
 
@@ -269,10 +269,10 @@ coefficienti_tab=array2table(coefficienti1, ...                                 
 figure(1);clf;
 plot(tg_beta_deg,gamma_Tip_dx,'r','LineWidth',2), hold on, plot(tg_beta_deg,gamma_Tip_sx,'b*')
 grid on
-title('intensit‡ dei vortici di estremit‡ alari al variare dell''angiolo di freccia')
+title('intensit√† dei vortici di estremit√† alari al variare dell''angiolo di freccia')
 legend('vortice destro','vortice sinistro')
 xlabel('angolo di freccia (deg)')
-ylabel('intensit‡ del vortice')
+ylabel('intensit√† del vortice')
 hold off
 
 figure(2);clf;
